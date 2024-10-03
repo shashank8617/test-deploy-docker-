@@ -78,7 +78,9 @@ cd ../frontend
 npm run dev
 
 
-The application should now be running on `http://localhost:3000`.
+The application should now be running on `http://localhost:5173`.
+The admin application is running on `http://localhost:5174`.
+The backend application is running on `http://localhost:4000`. 
 
 ## API Endpoints
 
