@@ -1,9 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-export const  connectDB = async () =>{
-    await mongoose.connect(process.env.MONGODB_URI).then(()=>console.log("DB Connected"))
-}
+dotenv.config();
 
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {  // Ensure this matches the environment variable
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
 
-// add your mongoDB connection string above.
-// Do not use '@' symbol in your databse user's password else it will show an error.
+export default connectDB;
+

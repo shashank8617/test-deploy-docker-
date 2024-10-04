@@ -1,0 +1,51 @@
+version: '3'
+services:
+  # Backend service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/fooddelivery  # Updated variable name
+    networks:
+      - foodnetwork
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:80'   # React will run on port 3000
+    networks:
+      - foodnetwork
+
+  # Admin service
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    ports:
+      - '4000:80'   # Admin will run on port 4000
+    networks:
+      - foodnetwork
+
+  # MongoDB service
+  mongo:
+    image: mongo:5.0
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db  # Add a volume to persist data
+
+networks:
+  foodnetwork:
+
+volumes:
+  mongodb_data:  # Declare the volume
+
